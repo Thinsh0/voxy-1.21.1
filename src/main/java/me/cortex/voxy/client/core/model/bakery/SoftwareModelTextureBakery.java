@@ -80,6 +80,7 @@ public class SoftwareModelTextureBakery {
         glPixelStorei(GL_PACK_SKIP_PIXELS, 0);
         glPixelStorei(GL_PACK_ALIGNMENT, 4);
         glGetTextureImage(texId, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
+        glPixelStorei(GL_PACK_ROW_LENGTH, 0);//1.21.1 port: vanilla texture downloads (e.g. world icon screenshot) dont reset this and overflow
         this.rasterizer.setSamplerTexture(texture, width, height);
     }
 
