@@ -14,8 +14,9 @@ import java.io.StringWriter;
 
 @Mixin(GlDebug.class)
 public class MixinGlDebug {
+    //1.21.1 port: printDebugLog is static
     @WrapOperation(method = "printDebugLog", at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;info(Ljava/lang/String;Ljava/lang/Object;)V", remap = false))
-    private void voxy$wrapDebug(Logger instance, String base, Object msgObj, Operation<Void> original) {
+    private static void voxy$wrapDebug(Logger instance, String base, Object msgObj, Operation<Void> original) {
         if (msgObj instanceof GlDebug.LogEntry msg) {
             var throwable = new Throwable(msg.toString());
             if (isCausedByVoxy(throwable.getStackTrace())) {
@@ -39,7 +40,7 @@ public class MixinGlDebug {
     }
 
     @Unique
-    private boolean isCausedByVoxy(StackTraceElement[] trace) {
+    private static boolean isCausedByVoxy(StackTraceElement[] trace) {
         for (var elem : trace) {
             if (elem.getClassName().startsWith("me.cortex.voxy")) {
                 return true;
@@ -49,7 +50,7 @@ public class MixinGlDebug {
     }
 
     @Unique
-    private boolean isCausedByShaderCompileTest(StackTraceElement[] trace) {
+    private static boolean isCausedByShaderCompileTest(StackTraceElement[] trace) {
         for (var elem : trace) {
             if (elem.getClassName().equals(Capabilities.class.getName()) && elem.getMethodName().equals("testShaderCompilesOk")) {
                 return true;

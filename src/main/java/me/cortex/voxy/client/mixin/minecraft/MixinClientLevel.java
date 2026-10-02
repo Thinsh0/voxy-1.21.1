@@ -44,10 +44,10 @@ public abstract class MixinClientLevel {
             Holder<DimensionType> dimensionType,
             int loadDistance,
             int simulationDistance,
+            java.util.function.Supplier<net.minecraft.util.profiling.ProfilerFiller> profiler,//1.21.1 port
             LevelRenderer worldRenderer,
             boolean debugWorld,
             long seed,
-            int seaLevel,
             CallbackInfo cir) {
         this.bottomSectionY = ((Level)(Object)this).getMinY()>>4;
     }

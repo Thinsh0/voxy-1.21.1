@@ -24,6 +24,7 @@ public class MixinWorld implements IWorldGetIdentifier {
                                        ResourceKey<Level> key,
                                        RegistryAccess registryManager,
                                        Holder<DimensionType> dimensionEntry,
+                                       java.util.function.Supplier<net.minecraft.util.profiling.ProfilerFiller> profiler,//1.21.1 port
                                        boolean isClient,
                                        boolean debugWorld,
                                        long seed,
