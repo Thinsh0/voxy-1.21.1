@@ -41,7 +41,7 @@
     "minecraft": ["1.21.1"],
     "fabricloader": ">=0.14.22",
     "fabric-api": ">=0.91.1",
-    "sodium": ["=0.8.12", "=0.8.13"]
+    "sodium": ">=0.8.12-beta.1 <0.9"
   },
   "breaks": {
     "voxyworldgenv2": "=2.2.2"
