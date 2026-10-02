@@ -1,0 +1,31 @@
+tiny	2	0	official	named
+c	fam	com/mojang/blaze3d/platform/Window
+	m	()J	j	handle
+c	ddj	net/minecraft/world/level/PathNavigationRegion
+	m	()I	I_	getMinY
+c	ji	net/minecraft/core/Direction
+	m	()Lkh;	q	getUnitVec3i
+c	dcl	net/minecraft/world/level/EmptyBlockGetter
+	m	()I	I_	getMinY
+c	duy	net/minecraft/world/level/chunk/ChunkAccess
+	m	()I	I_	getMinY
+c	akr	net/minecraft/resources/Identifier
+c	fgo	net/minecraft/client/Minecraft
+	m	()Lfgf;	at	getDeltaTracker
+c	arb	net/minecraft/server/level/WorldGenRegion
+	m	()I	I_	getMinY
+c	ffy	net/minecraft/client/Camera
+	m	()Lexc;	b	position
+c	dcz	net/minecraft/world/level/LevelReader
+	m	()I	I_	getMinY
+c	akq	net/minecraft/resources/ResourceKey
+	m	()Lakr;	a	identifier
+c	dcy	net/minecraft/world/level/LevelHeightAccessor
+	m	()I	I_	getMinY
+	m	()I	ao	getMinSectionY
+c	dcy$1	net/minecraft/world/level/LevelHeightAccessor$1
+	m	()I	I_	getMinY
+c	dym$1	net/minecraft/world/level/levelgen/BelowZeroRetrogen$1
+	m	()I	I_	getMinY
+c	ghx	net/minecraft/client/renderer/chunk/RenderChunkRegion
+	m	()I	I_	getMinY

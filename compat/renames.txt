@@ -1,0 +1,14 @@
+# Renames Mojang made after 1.21.1, applied as a mapping layer (see gen_mappings.py)
+# Only pure renames with identical behaviour belong here.
+#   class  <intermediary class>                <new name>
+#   method <intermediary method> <1.21.1 name> <new name>      (no-arg methods only)
+
+class net/minecraft/class_2960 net/minecraft/resources/Identifier   # ResourceLocation
+
+method method_29177 location          identifier       # ResourceKey
+method method_31607 getMinBuildHeight getMinY          # LevelHeightAccessor
+method method_32891 getMinSection     getMinSectionY   # LevelHeightAccessor
+method method_10163 getNormal         getUnitVec3i     # Direction
+method method_4490  getWindow         handle           # Window
+method method_19326 getPosition       position         # Camera
+method method_60646 getTimer          getDeltaTracker  # Minecraft
