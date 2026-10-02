@@ -114,6 +114,10 @@ public class IrisVoxyRenderPipelineData {
     private static int[] getDrawBuffers(int[] targets, ImmutableSet<Integer> stageWritesToAlt, RenderTargets rt) {
         int[] targetTextures = new int[targets.length];
         for(int i = 0; i < targets.length; i++) {
+            //1.21.1 port: iris 1.8 only has 16 colortex targets, newer packs can use more
+            if (targets[i] >= rt.getRenderTargetCount()) {
+                throw new IllegalStateException("Shaderpack voxy patch draws to colortex" + targets[i] + " but this iris version only supports " + rt.getRenderTargetCount() + " render targets");
+            }
             RenderTarget target = rt.getOrCreate(targets[i]);
             int textureId = stageWritesToAlt.contains(targets[i]) ? target.getAltTexture() : target.getMainTexture();
             targetTextures[i] = textureId;

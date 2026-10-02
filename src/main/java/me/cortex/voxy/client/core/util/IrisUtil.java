@@ -58,7 +58,9 @@ public class IrisUtil {
     }
 
     private static boolean irisShaderPackEnabled0() {
-        return Iris.getCurrentPack().isPresent();
+        //1.21.1 port: iris 1.8 keeps the pack selected when its pipeline fails to build and falls back to vanilla rendering
+        var pipeline = Iris.getPipelineManager().getPipelineNullable();
+        return Iris.getCurrentPack().isPresent() && (pipeline == null || pipeline instanceof net.irisshaders.iris.pipeline.IrisRenderingPipeline);
     }
 
     public static boolean irisShaderPackEnabled() {
