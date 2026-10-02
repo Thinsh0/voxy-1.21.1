@@ -1,42 +1,38 @@
 package me.cortex.voxy.client.mixin.minecraft;
 
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.systems.RenderSystem;
 import me.cortex.voxy.client.config.VoxyConfig;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
 import net.minecraft.client.Camera;
-import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.fog.FogData;
-import net.minecraft.client.renderer.fog.FogRenderer;
-import org.joml.Vector4f;
-import org.objectweb.asm.Opcodes;
+import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.material.FogType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//1.21.1 port: there is a single fog instead of separate environmental and render distance fogs,
+// so work out which one vanilla produced and disable it like upstream does
 @Mixin(value = FogRenderer.class,remap = true)
 public class MixinFogRenderer {
-    @Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getDevice()Lcom/mojang/blaze3d/systems/GpuDevice;", remap = false))
-    private void voxy$modifyFog(Camera camera, int rdInt, DeltaTracker tracker, float pTick, ClientLevel lvl, CallbackInfoReturnable<Vector4f> cir, @Local(type=FogData.class) FogData data) {
+    @Inject(method = "setupFog", at = @At("TAIL"))
+    private static void voxy$modifyFog(Camera camera, FogRenderer.FogMode mode, float renderDistance, boolean thickFog, float pTick, CallbackInfo ci) {
+        if (mode != FogRenderer.FogMode.FOG_TERRAIN) return;
         if (!VoxyConfig.CONFIG.isRenderingEnabled()) return;
 
         var vrs = IGetVoxyRenderSystem.getNullable();
         if (vrs == null) return;
 
-        /*
-        if (!VoxyConfig.CONFIG.useRenderFog) {
-        }*/
-        boolean fogIsDamnClose = data.environmentalEnd<10;
-        if (!VoxyConfig.CONFIG.useEnvironmentalFog && !fogIsDamnClose) {
-            data.environmentalStart = 99999999;
-            data.environmentalEnd = 99999999;
+        boolean environmental = thickFog || camera.getFluidInCamera() != FogType.NONE ||
+                (camera.getEntity() instanceof LivingEntity entity && (entity.hasEffect(MobEffects.BLINDNESS) || entity.hasEffect(MobEffects.DARKNESS)));
+        boolean fogIsDamnClose = RenderSystem.getShaderFogEnd()<10;
+        if (environmental && (VoxyConfig.CONFIG.useEnvironmentalFog || fogIsDamnClose)) {
+            return;
         }
 
-        data.renderDistanceStart = 999999999;
-        data.renderDistanceEnd = 999999999;
+        RenderSystem.setShaderFogStart(99999999);
+        RenderSystem.setShaderFogEnd(99999999);
     }
 }

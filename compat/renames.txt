@@ -1,5 +1,6 @@
 # Renames Mojang made after 1.21.1, applied as a mapping layer (see gen_mappings.py)
 # Only pure renames with identical behaviour belong here.
+# Classes missing from intermediary (unobfuscated ones like GlStateManager) cannot be renamed this way.
 #   class  <intermediary class>                <new name>
 #   method <intermediary method> <1.21.1 name> <new name>      (no-arg methods only)
 
@@ -12,3 +13,8 @@ method method_10163 getNormal         getUnitVec3i     # Direction
 method method_4490  getWindow         handle           # Window
 method method_19326 getPosition       position         # Camera
 method method_60646 getTimer          getDeltaTracker  # Minecraft
+
+class net/minecraft/class_1008 com/mojang/blaze3d/opengl/GlDebug                      # package move
+
+#   field  <intermediary field>  <1.21.1 name> <new name>
+field field_43115 mipLevel maxMipLevel   # TextureAtlas

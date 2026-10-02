@@ -1,6 +1,10 @@
 tiny	2	0	official	named
+c	fab	com/mojang/blaze3d/opengl/GlDebug
+c	fab$a	com/mojang/blaze3d/opengl/GlDebug$LogEntry
 c	fam	com/mojang/blaze3d/platform/Window
 	m	()J	j	handle
+c	gqk	net/minecraft/client/renderer/texture/TextureAtlas
+	f	I	p	maxMipLevel
 c	ddj	net/minecraft/world/level/PathNavigationRegion
 	m	()I	I_	getMinY
 c	ji	net/minecraft/core/Direction
@@ -10,6 +14,7 @@ c	dcl	net/minecraft/world/level/EmptyBlockGetter
 c	duy	net/minecraft/world/level/chunk/ChunkAccess
 	m	()I	I_	getMinY
 c	akr	net/minecraft/resources/Identifier
+c	akr$a	net/minecraft/resources/Identifier$Serializer
 c	fgo	net/minecraft/client/Minecraft
 	m	()Lfgf;	at	getDeltaTracker
 c	arb	net/minecraft/server/level/WorldGenRegion

@@ -2,7 +2,7 @@ package me.cortex.voxy.client.core.model;
 
 import net.caffeinemc.mods.sodium.client.util.color.ColorSRGB;
 import net.minecraft.client.renderer.texture.MipmapGenerator;
-import net.minecraft.util.ARGB;
+import me.cortex.voxy.compat.ARGB;
 
 import java.util.Arrays;
 

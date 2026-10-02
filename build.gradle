@@ -134,7 +134,7 @@ dependencies {
     modImplementation("maven.modrinth:lithium:mc1.21.1-0.15.4-fabric")
 
     //modRuntimeOnlyMsk "drouarb:nvidium:0.4.1-beta4:1.21.6@jar"
-    modCompileOnly "drouarb:nvidium:0.4.1-beta4:1.21.6@jar"
+    //modCompileOnly "drouarb:nvidium:0.4.1-beta4:1.21.6@jar"//1.21.1 port: no nvidium for sodium 0.8 on 1.21.1
 
     modCompileOnly("maven.modrinth:modmenu:11.0.5")
     modRuntimeOnlyMsk("maven.modrinth:modmenu:11.0.5")
@@ -253,6 +253,7 @@ dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"
+    compileOnly "org.jspecify:jspecify:1.0.0"//1.21.1 port: shipped by minecraft in newer versions
     include(implementation "org.lwjgl:lwjgl-lmdb")
     include(implementation "org.lwjgl:lwjgl-zstd")
     runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:natives-windows"
